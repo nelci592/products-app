@@ -15,7 +15,7 @@ class ListState extends AutoDisposeAsyncNotifier<List<Product>?> {
 
   Future<List<Product>?> fetchProducts() async {
     try {
-      ref.read(buttonProvider.notifier).changeVisibility();
+      ref.read(buttonProvider.notifier).changeVisibility(false);
       state = const AsyncValue.loading();
       _productsUseCase = ProductsUseCase(ref.read(productsRepository));
       final initialList = await _productsUseCase.getProducts();
@@ -23,7 +23,7 @@ class ListState extends AutoDisposeAsyncNotifier<List<Product>?> {
       return initialList.isEmpty ? null : initialList;
     } catch (error, stack) {
       state = AsyncValue.error(error, stack);
-      ref.read(buttonProvider.notifier).changeVisibility();
+      ref.read(buttonProvider.notifier).changeVisibility(true);
       return null;
     }
   }
