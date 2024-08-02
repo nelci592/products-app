@@ -1,16 +1,31 @@
-# products_app
+# Products app
 
-A new Flutter project.
+The project is following the Clean Architecture pattern. The project is divided into 3 layers: data, domain, and presentation.
+The different layers are separated by folders and each layer has its own dependencies.
+They are grouped by modules (the different features of the app).
 
-## Getting Started
+**Data Layer**: contains entities, the data sources (remote and local), and repository implementations.
+**Domain Layer**: contains the use cases and repositoriy definitions.
+**Presentation Layer**: contains the UI (pages and pages-specific widgets) and state.
 
-This project is a starting point for a Flutter application.
+The project is using flutter build_runner to generate the code for the services (using chopper) and the json_serializable to generate the code for the JSON parsing.
 
-A few resources to get you started if this is your first Flutter project:
+To generate the code for the services and the json_serializable, run the following command:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+flutter pub run build_runner build
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## How to run the app
+
+1. Download the project or clone the repository.
+2. Open the project in the IDE.
+3. Restore the packages by running:
+```bash
+flutter pub get
+```
+4. Select a device.
+5. Run the app by executing:
+```bash
+flutter run
+```
