@@ -27,15 +27,14 @@ class ProductsListPage extends HookConsumerWidget {
       if (state.hasValue) {
         products.value = state.value;
       }
-      state.showErrorSnackBar(context);
+      state.showErrorSnackBar(
+        context,
+        errorMessage: "An error has occured while fetching the products.",
+      );
     });
 
     Future<void> fetchProducts() async {
       await ref.read(listProvider.notifier).fetchProducts();
-    }
-
-    void hideButton() {
-      ref.read(buttonProvider.notifier).hideButton();
     }
 
     return Scaffold(
@@ -46,10 +45,7 @@ class ProductsListPage extends HookConsumerWidget {
       body: Center(
         child: isBtnVisible
             ? ElevatedButton(
-                onPressed: () {
-                  fetchProducts();
-                  hideButton();
-                },
+                onPressed: fetchProducts,
                 child: const Text("Fetch Products"),
               )
             : state.when(
@@ -69,9 +65,10 @@ class ProductsListPage extends HookConsumerWidget {
                           fetchProducts: fetchProducts,
                         );
                 },
-                error: (error, _) =>
-                    Text("Error: $error", textAlign: TextAlign.center),
                 loading: () => const CircularProgressIndicator(),
+                error: (Object error, StackTrace stackTrace) {
+                  return null;
+                },
               ),
       ),
     );

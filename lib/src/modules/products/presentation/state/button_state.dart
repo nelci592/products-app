@@ -6,8 +6,8 @@ class ButtonState extends AutoDisposeNotifier<bool> {
     return true;
   }
 
-  void hideButton() {
-    state = false;
+  void changeVisibility() {
+    state = !state;
   }
 }
 
