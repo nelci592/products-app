@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:products_app/src/modules/products/data/model/product.dart';
+import 'package:products_app/src/modules/products/presentation/components/product_tile.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class ProductsList extends StatelessWidget {
@@ -23,24 +23,9 @@ class ProductsList extends StatelessWidget {
         itemCount: products.value!.length,
         itemBuilder: (context, index) {
           final product = products.value![index];
-          return Card(
-            child: ListTile(
-              leading: CachedNetworkImage(
-                imageUrl: product.thumbnail ?? defaultImage,
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
-              title: [
-                Text(product.title ?? "Missing title").fontSize(16).bold(),
-                Text(
-                  product.description ?? "Missing description",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text("Price: ${product.price} CHF")
-              ].toColumn(crossAxisAlignment: CrossAxisAlignment.start),
-            ),
+          return ProductTile(
+            product: product,
+            defaultImage: defaultImage,
           ).padding(horizontal: 5);
         },
       ),
