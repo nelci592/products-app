@@ -9,14 +9,15 @@ class ListState extends AutoDisposeAsyncNotifier<List<Product>?> {
 
   @override
   FutureOr<List<Product>?> build() async {
+    return null; // Do not fetch products initially
+  }
+
+  Future<List<Product>?> fetchProducts() async {
+    state = const AsyncValue.loading();
     _productsUseCase = ProductsUseCase(ref.read(productsRepository));
     final initialList = await _productsUseCase.getProducts();
-
-    if (initialList.isEmpty) {
-      return null;
-    } else {
-      return initialList;
-    }
+    state = AsyncValue.data(initialList.isEmpty ? null : initialList);
+    return initialList.isEmpty ? null : initialList;
   }
 }
 
